@@ -52,6 +52,11 @@ public class LeaderElection implements Watcher {
 
     private void run() throws InterruptedException {
         synchronized (zooKeeper) {
+            // when a breakpoint is hit, all the threads will be suspended.
+            // Right-click on break-point and Change All to Thread instead.
+            // only the thread that reached that breakpoint line of code will be suspended,
+            // while the rest of the threads, including the IO background thread,
+            // will continue running as usual, and we will not lose the connection to Zookeeper.
             zooKeeper.wait();
         }
     }
